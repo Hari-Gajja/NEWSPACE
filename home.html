@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SRCHITS-Form</title>
+    <link rel="shortcut icon" class="favicon" href="logo.jpg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Import fonts and set variables */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #2a2a72;
+            --secondary-color: #009ffd;
+            --accent-color: #ff6b6b;
+            --background-color: #f5f5f5;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .receipt {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .receipt h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .receipt div {
+            margin-bottom: 1.2rem;
+        }
+
+        .receipt label {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .receipt input, .receipt textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .receipt input:focus, .receipt textarea:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(0, 159, 253, 0.1);
+            outline: none;
+        }
+
+        .button {
+            background: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .button:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            display: block;
+            margin: 1rem auto;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 2rem;
+            padding: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .receipt {
+                padding: 1.5rem;
+            }
+
+            .button {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt" id="receipt">
+        <img src="logo.jpg" alt="Logo Here">
+        <h2>SR CHITS</h2>
+        <h2>CASH RECEIPT</h2>
+        <div>
+            <label for="date"><i class="fas fa-calendar"></i> Date</label>
+            <input type="date" id="date">
+        </div>
+        <div>
+            <label for="time"><i class="fas fa-clock"></i> Time</label>
+            <input type="time" id="time">
+        </div>
+        <div>
+            <label for="months"><i class="fas fa-calendar-alt"></i> Number of Payment months</label>
+            <input type="number" id="months" placeholder="Enter payment month">
+        </div>
+        <div>
+            <label for="from"><i class="fas fa-user"></i> From</label>
+            <input type="text" id="from" placeholder="Enter the sender name">
+        </div>
+        <div>
+            <label for="currency"><i class="fas fa-money-bill"></i> Currency</label>
+            <input type="text" id="currency" value="INR">
+        </div>
+        <div>
+            <label for="amount"><i class="fas fa-rupee-sign"></i> Amount</label>
+            <input type="number" id="amount" placeholder="Enter Amount">
+        </div>
+        <div>
+            <label for="for"><i class="fas fa-users"></i> Group</label>
+            <input type="text" id="for" placeholder="Enter the plan">
+        </div>
+
+        <div>
+            <label for="issuedBy"><i class="fas fa-building"></i> Issued By</label>
+            <input type="text" id="issuedBy" value="SR CHITS" readonly>
+        </div>
+        <div>
+            <label for="methodOfPayment"><i class="fas fa-credit-card"></i> Method of Payment</label>
+            <input type="text" id="methodOfPayment" value="Cash" readonly>
+        </div>
+        <div>
+            <label for="details"><i class="fas fa-info-circle"></i> Details</label>
+            <textarea id="details" rows="4" readonly></textarea>
+        </div>
+        <button class="button" onclick="redirectToSharePage()">
+            <i class="fas fa-share-alt"></i> Share as PDF
+        </button>
+        <button class="button" onclick="shareOnWhatsApp()">
+            <i class="fab fa-whatsapp"></i> Share on WhatsApp
+        </button>
+        <footer class="footer">
+            <p>Developed by Hari Gajja</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
