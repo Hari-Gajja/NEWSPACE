@@ -115,7 +115,7 @@ function redirectToSharePage() {
         <p>Amount: <b>${amount}</b></p>
         <p>Group: <b>${forWhat}</b></p>
         <p>Number of months paid: <b>${months}</b></p>
-        <p>Received with thanks from <b>${from}</b><br>amount of <b>INR ${amount}.00</b> for Payment of<br><b>${forWhat}</b> completed ${months} months on ${formattedDate} at<br>${time}.</p>
+        <p>Received with thanks from <b>${from}</b><br>amount of <b>INR ${amount}.00</b> for Payment of<br><b>${forWhat}</b> completed <b>${months} </b>months on ${formattedDate} at<br>${time}.</p>
         <p>Method of Payment: ${methodOfPayment}</p>
         <img src="logo.jpg" alt="Logo Here">
         <p>Received By: ${issuedBy}</p>
